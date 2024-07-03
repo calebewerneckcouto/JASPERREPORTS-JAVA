@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <h1 style="text-align: center;">Relatório MVC</h1>
+  
+  <form action="/imprimirReportMvc" method="POST" style="width: 100%; padding-top: 10%;padding-left: 40%">
+    <label for="nome">Nome do relatório</label><br>
+    <select id="nome" name="nome">
+     <option value="relatorio-usuario-jrbcds">Relatório de usuário</option>
+     <option value="relatorio-usuario-agrupamento-jrbcds">Relatório de usuário agrupamento</option>
+     <option value="relatorio-usuario-com-subreport-jrbcds">Relatório de usuário sub-report</option>
+     <option value="relatorio-usuario-grafico-pizza-jrbcds">Relatório de usuário pizza</option>
+     <option value="relatorio_usuario-barra-chart-jrbcds">Relatório de usuário barra</option>
+     <option value="relatorio_usuario_tabela-jrbcds">Relatório de usuário tabela</option>
+     <option value="relatorio_usuario_crosstable-jrbcds">Relatório de usuário cross tabela</option>
+    </select>
+    <br>
+    <br>
+    <label for="salario_ini">Salário Inicial</label><br>
+    <input type="text" id="salario_ini" name="salario_ini">
+    <br>
+    <br>
+    <label for="salario_fim">Salário Final</label><br>
+    <input type="text" id="salario_fim" name="salario_fim">
+    <br>
+    <br>
+    <input type="submit" value="Imprimir relatório">
+  </form>
+
+</body>
+</html>

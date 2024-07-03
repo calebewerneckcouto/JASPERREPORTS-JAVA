@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <h1 style="text-align: center;">Relatório REST API</h1>
+  
+  <form action="/imprimirReportMvc" method="POST" style="width: 100%; padding-top: 10%;padding-left: 40%">
+    <label for="nome">Nome do relatório</label><br>
+    <select id="nome" name="nome">
+     <option value="relatorio-usuario-jrbcds">Relatório de usuário</option>
+     <option value="relatorio-usuario-agrupamento-jrbcds">Relatório de usuário agrupamento</option>
+     <option value="relatorio-usuario-com-subreport-jrbcds">Relatório de usuário sub-report</option>
+     <option value="relatorio-usuario-grafico-pizza-jrbcds">Relatório de usuário pizza</option>
+     <option value="relatorio_usuario-barra-chart-jrbcds">Relatório de usuário barra</option>
+     <option value="relatorio_usuario_tabela-jrbcds">Relatório de usuário tabela</option>
+     <option value="relatorio_usuario_crosstable-jrbcds">Relatório de usuário cross tabela</option>
+    </select>
+    <br>
+    <br>
+    <label for="salario_ini">Salário Inicial</label><br>
+    <input type="text" id="salario_ini" name="salario_ini">
+    <br>
+    <br>
+    <label for="salario_fim">Salário Final</label><br>
+    <input type="text" id="salario_fim" name="salario_fim">
+    <br>
+    <br>
+    <input type="button" value="Imprimir relatório" onclick="imprimirReportRestApi()">
+  </form>
+
+<br>
+<br>
+
+
+<iframe src="" style="width: 100%;height: 500px" id="framePdf">
+
+</iframe>
+
+<script type="text/javascript">
+
+  function imprimirReportRestApi(){
+	  var nome = document.getElementById('nome').value;
+	  
+	  var salario_ini = document.getElementById('salario_ini').value;
+	  
+	  var salario_fim = document.getElementById('salario_fim').value;
+	  
+	  var request = new XMLHttpRequest();
+	  request.open("GET","/imprimirReportBase64/nome/"+nome+"/salario_ini/"+salario_ini+"/salario_fim/" + salario_fim, false);
+	  request.send();
+	  
+	  var pdf = request.responseText;
+	  
+	
+	 // console.info(pdf);
+	 
+	  document.getElementById('framePdf').src = pdf;
+	  
+  }
+
+</script>
+</body>
+</html>
