@@ -35,6 +35,16 @@ public class Usuario implements Serializable {
 
 	@OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	List<Telefone> telefones = new ArrayList<Telefone>();
+	
+	private byte [] foto;
+	
+	public byte[] getFoto() {
+		return foto;
+	}
+	
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
 
 	public Long getId() {
 		return id;
