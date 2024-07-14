@@ -7,7 +7,7 @@
 	<groupId>projeto</groupId>
 	<artifactId>jasperreport</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -85,7 +85,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.5</version>
+			<version>9.4.1212</version>
 		</dependency>
 
 		<dependency>
