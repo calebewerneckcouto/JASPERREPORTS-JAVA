@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório REST API</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px; /* Adicionamos padding para espaçamento interno */
+        box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    select, input[type="text"], input[type="submit"] {
+        width: calc(100% - 16px); /* Ajuste para compensar o padding */
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .pdf-container {
+        width: 100%;
+        max-width: 800px; /* Ajuste conforme necessário */
+        margin: 20px auto;
+    }
+
+    @media only screen and (max-width: 600px) {
+        form {
+            padding: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<h1>Relatório REST API</h1>
+
+<form onsubmit="return imprimirReportRestApi()">
+    <label for="nome">Nome do relatório</label><br>
+    <select id="nome">
+        <option value="relatorio-usuario-jrbcds">Relatório de usuário</option>
+        <option value="relatorio-usuario-agrupamento-jrbcds">Relatório de usuário agrupamento</option>
+        <option value="relatorio-usuario-com-subreport-jrbcds">Relatório de usuário sub-report</option>
+        <option value="relatorio-usuario-grafico-pizza-jrbcds">Relatório de usuário pizza</option>
+        <option value="relatorio_usuario-barra-chart-jrbcds">Relatório de usuário barra</option>
+        <option value="relatorio_usuario_tabela-jrbcds">Relatório de usuário tabela</option>
+        <option value="relatorio_usuario_crosstable-jrbcds">Relatório de usuário cross tabela</option>
+    </select>
+    <br><br>
+    
+    <label for="salario_ini">Salário Inicial</label><br>
+    <input type="text" id="salario_ini"><br><br>
+    
+    <label for="salario_fim">Salário Final</label><br>
+    <input type="text" id="salario_fim"><br><br>
+    
+    <input type="submit" value="Imprimir relatório">
+</form>
+
+<div class="pdf-container">
+    <embed src="" id="embedPdf" width="100%" height="600px" type="application/pdf">
+</div>
+
+<script>
+function imprimirReportRestApi() {
+    var nome = document.getElementById('nome').value;
+    var salario_ini_text = document.getElementById('salario_ini').value;
+    var salario_fim_text = document.getElementById('salario_fim').value;
+    
+    var salario_ini = parseFloat(salario_ini_text);
+    var salario_fim = parseFloat(salario_fim_text);
+    
+    if (isNaN(salario_ini) || isNaN(salario_fim)) {
+        alert("Por favor, digite valores numéricos para os salários.");
+        return false;
+    }
+    
+    var url = "/jasper/imprimirReportBase64/nome/" + nome + "/salario_ini/" + salario_ini + "/salario_fim/" + salario_fim;
+    
+    var request = new XMLHttpRequest();
+    request.open("GET", url, false);
+    request.send();
+    
+    var pdf = request.responseText;
+    
+    // Atualizar o embed com o PDF
+    document.getElementById('embedPdf').src = pdf;
+    
+    return false;
+}
+</script>
+
+</body>
+</html>

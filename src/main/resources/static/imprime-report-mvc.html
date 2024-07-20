@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório MVC</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    select, input[type="text"], input[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        opacity: 0.5; /* Botão inicialmente desativado */
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    input[type="submit"]:disabled {
+        opacity: 0.5; /* Manter a opacidade reduzida quando desativado */
+        cursor: not-allowed; /* Cursor de não permitido quando desativado */
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Relatório MVC</h1>
+  
+    <form id="reportForm" action="/jasper/imprimirReportMvc" method="POST" onsubmit="return validateForm()">
+        <label for="nome">Nome do relatório</label><br>
+        <select id="nome" name="nome">
+            <option value="relatorio-usuario-jrbcds">Relatório de usuário</option>
+            <option value="relatorio-usuario-agrupamento-jrbcds">Relatório de usuário agrupamento</option>
+            <option value="relatorio-usuario-com-subreport-jrbcds">Relatório de usuário sub-report</option>
+            <option value="relatorio-usuario-grafico-pizza-jrbcds">Relatório de usuário pizza</option>
+            <option value="relatorio_usuario-barra-chart-jrbcds">Relatório de usuário barra</option>
+            <option value="relatorio_usuario_tabela-jrbcds">Relatório de usuário tabela</option>
+            <option value="relatorio_usuario_crosstable-jrbcds">Relatório de usuário cross tabela</option>
+        </select>
+        <br><br>
+        
+        <label for="salario_ini">Salário Inicial</label><br>
+        <input type="text" id="salario_ini" name="salario_ini" oninput="validateForm()"><br><br>
+        
+        <label for="salario_fim">Salário Final</label><br>
+        <input type="text" id="salario_fim" name="salario_fim" oninput="validateForm()"><br><br>
+
+        <span id="errorMessage" class="error-message"></span>
+        
+        <input type="submit" value="Imprimir relatório" id="submitBtn" disabled>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    const salarioIni = document.getElementById('salario_ini').value;
+    const salarioFim = document.getElementById('salario_fim').value;
+    const errorMessage = document.getElementById('errorMessage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (salarioIni.trim() === '' || salarioFim.trim() === '') {
+        errorMessage.textContent = "Favor preencher todos os campos.";
+        submitBtn.disabled = true;
+        return false; // Impede o envio do formulário
+    } else {
+        errorMessage.textContent = "";
+        submitBtn.disabled = false;
+        return true; // Permite o envio do formulário
+    }
+}
+</script>
+
+</body>
+</html>
